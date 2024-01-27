@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker"/>
-    <Tasks :tasks="tasks"/>
+    <Tasks @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
 
@@ -13,11 +13,18 @@ export default {
   name: 'App',
   components: {
    Header,
-   Tasks
+   Tasks,
   },
   data() {
     return {
       tasks: []
+    }
+  },
+  methods: {
+    deleteTask(id) {
+      if (confirm('Are you sure?')) {
+        this.tasks = this.tasks.filter((task) => task.id !== id)
+      }
     }
   },
   created() {
@@ -47,7 +54,7 @@ export default {
         reminder: true
       }
     ]
-  }
+  },
 }
 </script>
 
